@@ -1,0 +1,20 @@
+{
+  "name": "api-distelsa",
+  "version": "1.0.0",
+  "description": "Servicio API para sistema DISTELSA. Prácticas de trabajo e investigación 7, universidad del Istmo de Guatemala.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Andres1599/api-distelsa.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Andres1599/api-distelsa/issues"
+  },
+  "homepage": "https://github.com/Andres1599/api-distelsa#readme"
+}
