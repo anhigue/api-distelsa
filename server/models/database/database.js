@@ -8,6 +8,7 @@ const MonedasModel = require('../monedas/monedas.mode')
 const TipoMaterialesModel = require('../materiales/tipo.material.model')
 const TiendasModel = require('../tiendas/tienda.model')
 const TipoUsuariosModel = require('../usuarios/tipo.usuario.model')
+const ProveedoresModel = require('../proveedores/proveedor.model')
 
 const Sequelize = new sequelize(config.db, config.user, config.password, config.dbOptions);
 
@@ -25,6 +26,7 @@ const Monedas = MonedasModel(Sequelize, sequelize)
 const TipoMateriales = TipoMaterialesModel(Sequelize, sequelize)
 const Tiendas = TiendasModel(Sequelize, sequelize)
 const TipoUsuarios = TipoUsuariosModel(Sequelize, sequelize)
+const Proveedores = ProveedoresModel(Sequelize, sequelize)
 
 // Instancia en aplicacion
 app.set('estados', Estados)
@@ -32,5 +34,6 @@ app.set('monedas', Monedas)
 app.set('tipo_materiales', TipoMateriales)
 app.set('tiendas', Tiendas)
 app.set('tipo_usuarios', TipoUsuarios)
+app.set('proveedores', Proveedores)
 
 module.exports = app
