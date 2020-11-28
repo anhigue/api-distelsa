@@ -7,6 +7,7 @@ module.exports = (app, str) => {
     const EstadoController = require('../controllers/estados/estado.controller')(app, str, Response)
     const MonedaController = require('../controllers/monedas/moneda.controller')(app, str, Response)
     const TipoMaterialController = require('../controllers/materiales/tipo.material.controller')(app, str, Response)
+    const TiendasController = require('../controllers/tiendas/tienda.controller')(app, str, Response)
 
     // Rutas de estados
     routes.post('/estado/', EstadoController.create)
@@ -22,6 +23,12 @@ module.exports = (app, str) => {
     routes.post('/tipo/material/', TipoMaterialController.create)
     routes.delete('/tipo/material/:id', TipoMaterialController.delete)
     routes.get('/tipo/material/', TipoMaterialController.getAll)
+
+    // Rutas de tipos de materiales
+    routes.post('/tienda/', TiendasController.create)
+    routes.put('/tienda/', TiendasController.update)
+    routes.delete('/tienda/:id', TiendasController.delete)
+    routes.get('/tienda/', TiendasController.getAll)
 
     return routes
 }
