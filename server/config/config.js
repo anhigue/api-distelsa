@@ -12,7 +12,7 @@ module.exports = {
             min: 0,
             idle: 10000
         },
-        logging: true
+        logging: false
     },
     status: process.env.STATE,
 };
