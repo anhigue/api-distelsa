@@ -47,7 +47,6 @@ async function getAllEstado(res, str, response, estados) {
         res.json(new response(true, str.get, null, Estados))
 
     } catch (error) {
-        console.log(error)
         res.json(new response(false, str.errCatch, error, null))
     }
 }
