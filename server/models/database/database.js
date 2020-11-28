@@ -38,17 +38,16 @@ const MaterialesTienda = MaterialesTiendaModel(Sequelize, sequelize, Materiales,
 const Arrendamientos = ArrendamientosModel(Sequelize, sequelize, Estados, Usuarios, Proveedores, Monedas)
 const ArrendamientosMateriales = ArrendamientosMaterialesModel(Sequelize, sequelize, Arrendamientos, MaterialesTienda)
 
-// Instancia en aplicacion
-app.set('estados', Estados)
-app.set('monedas', Monedas)
-app.set('tipo_materiales', TipoMateriales)
-app.set('tiendas', Tiendas)
-app.set('tipo_usuarios', TipoUsuarios)
-app.set('proveedores', Proveedores)
-app.set('usuarios', Usuarios)
-app.set('materiales', Materiales)
-app.set('materiales_tienda', MaterialesTienda)
-app.set('arrendamientos', Arrendamientos)
-app.set('arrendamientos_materiales', ArrendamientosMateriales)
-
-module.exports = app
+module.exports = {
+    Estados,
+    Monedas,
+    TipoMateriales,
+    Tiendas,
+    TipoUsuarios,
+    Proveedores,
+    Usuarios,
+    Materiales,
+    MaterialesTienda,
+    Arrendamientos,
+    ArrendamientosMateriales
+}

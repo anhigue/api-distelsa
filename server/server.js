@@ -3,8 +3,21 @@ const express = require('express')
 const logger = require('morgan')
 const cors = require('cors')
 const message = require('./utils/message')
+const dataBase = require('../server/models/database/database')
 
-var app = express();
+const app = express();
+
+app.set('estados', dataBase.Estados)
+app.set('monedas', dataBase.Monedas)
+app.set('tipo_materiales', dataBase.TipoMateriales)
+app.set('tiendas', dataBase.Tiendas)
+app.set('tipo_usuarios', dataBase.TipoUsuarios)
+app.set('proveedores', dataBase.Proveedores)
+app.set('usuarios', dataBase.Usuarios)
+app.set('materiales', dataBase.Materiales)
+app.set('materiales_tienda', dataBase.MaterialesTienda)
+app.set('arrendamientos', dataBase.Arrendamientos)
+app.set('arrendamientos_materiales', dataBase.ArrendamientosMateriales)
 
 // app configuration
 app.use(logger('dev'));
@@ -18,12 +31,11 @@ app.use((req, res, next) => {
 });
 
 app.use(cors());
+app.use('/api/', require('./routes')(app, message.MESSAGE_ESP))
+
 app.use((req, res, next) => {
     next(createError(404));
 });
-app.use('/api/', require('./routes')(app, message.MESSAGE_ESP))
-
-
 
 module.exports = app;
 
