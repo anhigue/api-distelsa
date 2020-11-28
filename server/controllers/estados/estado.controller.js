@@ -26,7 +26,7 @@ async function createEstado(req, res, str, response, estados) {
 async function deleteEstado(req, res, str, response, estados) {
     try {
 
-        const deleteEstado = await estados.destry({
+        const deleteEstado = await estados.destroy({
             where: {
                 id: req.params.id
             }
