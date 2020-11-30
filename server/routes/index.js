@@ -49,6 +49,7 @@ module.exports = (app, str) => {
     routes.put('/usuario/', UsuariosController.update)
     routes.delete('/usuario/:id', UsuariosController.delete)
     routes.get('/usuario/', UsuariosController.getAll)
+    routes.get('/usuario/:id', UsuariosController.getAll)
 
     return routes
 }

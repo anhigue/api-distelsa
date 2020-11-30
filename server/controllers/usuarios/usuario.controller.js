@@ -7,7 +7,8 @@ module.exports = (app, str, response) => {
         create: (req, res) => { createUsuarios(req, res, str, response, utiles, usuarios) },
         update: (req, res) => { updateUsuarios(req, res, str, response, usuarios) },
         delete: (req, res) => { deleteUsuarios(req, res, str, response, usuarios) },
-        getAll: (req, res) => { getAllUsuarios(res, str, response, usuarios) }
+        getAll: (req, res) => { getAllUsuarios(res, str, response, usuarios) },
+        getById: (req, res) => { getByIdUsuario(req, res, str, response, usuarios) }
     }
 }
 
@@ -76,6 +77,18 @@ async function getAllUsuarios(res, str, response, usuarios) {
         const Usuarios = await usuarios.findAll()
 
         res.json(new response(true, str.get, null, Usuarios))
+
+    } catch (error) {
+        res.json(new response(false, str.errCatch, error, null))
+    }
+}
+
+async function getByIdUsuario(req, res, str, response, usuarios) {
+    try {
+
+        const Usuario = await usuarios.findOne({ where: { id: req.params.id } })
+
+        res.json(new response(true, str.get, null, Usuario))
 
     } catch (error) {
         res.json(new response(false, str.errCatch, error, null))
