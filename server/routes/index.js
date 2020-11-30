@@ -11,6 +11,7 @@ module.exports = (app, str) => {
     const TipoUsuarioController = require('../controllers/usuarios/tipo.usuario.controller')(app, str, Response)
     const ProveedoresController = require('../controllers/proveedores/proveedor.controller')(app, str, Response)
     const UsuariosController = require('../controllers/usuarios/usuario.controller')(app, str, Response)
+    const MaterialesController = require('../controllers/materiales/material.controller')(app, str, Response)
 
     // Rutas de estados
     routes.post('/estado/', EstadoController.create)
@@ -50,6 +51,12 @@ module.exports = (app, str) => {
     routes.delete('/usuario/:id', UsuariosController.delete)
     routes.get('/usuario/', UsuariosController.getAll)
     routes.get('/usuario/:id', UsuariosController.getAll)
+
+    // Rutas de materiales
+    routes.post('/material/', MaterialesController.create)
+    routes.put('/material/', MaterialesController.update)
+    routes.delete('/material/:id', MaterialesController.delete)
+    routes.get('/material/', MaterialesController.getAll)
 
     return routes
 }
