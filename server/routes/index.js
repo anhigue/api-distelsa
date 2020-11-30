@@ -12,6 +12,7 @@ module.exports = (app, str) => {
     const ProveedoresController = require('../controllers/proveedores/proveedor.controller')(app, str, Response)
     const UsuariosController = require('../controllers/usuarios/usuario.controller')(app, str, Response)
     const MaterialesController = require('../controllers/materiales/material.controller')(app, str, Response)
+    const MaterialesTiendaController = require('../controllers/materiales/material.tienda.controller')(app, str, Response)
 
     // Rutas de estados
     routes.post('/estado/', EstadoController.create)
@@ -57,6 +58,13 @@ module.exports = (app, str) => {
     routes.put('/material/', MaterialesController.update)
     routes.delete('/material/:id', MaterialesController.delete)
     routes.get('/material/', MaterialesController.getAll)
+
+    // Rutas de materiales por tiendas
+    routes.post('/material/tienda/', MaterialesTiendaController.create)
+    routes.put('/material/tienda/', MaterialesTiendaController.update)
+    routes.delete('/material/tienda/:id', MaterialesTiendaController.delete)
+    routes.get('/material/tienda/', MaterialesTiendaController.getAll)
+    routes.get('/material/tienda/:id', MaterialesTiendaController.getAllByTienda)
 
     return routes
 }
