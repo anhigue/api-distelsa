@@ -15,4 +15,5 @@ module.exports = {
         logging: false
     },
     status: process.env.STATE,
+    seed: process.env.SEED
 };
