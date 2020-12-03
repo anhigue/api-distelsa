@@ -3,13 +3,15 @@ module.exports = (app, str, response) => {
     const materialesTienda = app.get('materiales_tienda')
     const material = app.get('materiales')
     const tipoMaterial = app.get('tipo_materiales')
+    const moneda = app.get('monedas')
+    const tiendas = app.get('tiendas')
 
     return {
         create: (req, res) => { createMaterialesTienda(req, res, str, response, materialesTienda) },
         update: (req, res) => { updateMaterialesTienda(req, res, str, response, materialesTienda) },
         delete: (req, res) => { deleteMaterialesTienda(req, res, str, response, materialesTienda) },
         getAll: (req, res) => { getAllMaterialesTienda(res, str, response, materialesTienda) },
-        getAllByTienda: (req, res) => { getAllByIdTienda(req, res, str, response, materialesTienda, material, tipoMaterial) }
+        getAllByTienda: (req, res) => { getAllByIdTienda(req, res, str, response, materialesTienda, material, tipoMaterial, moneda, tiendas) }
     }
 }
 
@@ -85,14 +87,14 @@ async function getAllMaterialesTienda(res, str, response, materialesTienda) {
     }
 }
 
-async function getAllByIdTienda(req, res, str, response, materialesTienda, material, tipoMaterial) {
+async function getAllByIdTienda(req, res, str, response, materialesTienda, material, tipoMaterial, moneda, tiendas) {
     try {
 
         const MaterialesTienda = await materialesTienda.findAll({
             where: {
                 fk_id_tienda: req.params.id
             },
-            include: [{ model: material, include: [tipoMaterial] }]
+            include: [{ model: material, include: [tipoMaterial] }, moneda, tiendas]
         })
 
         res.json(new response(true, str.get, null, MaterialesTienda))

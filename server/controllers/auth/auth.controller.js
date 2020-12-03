@@ -14,7 +14,7 @@ module.exports = (app, str, response) => {
 async function validateUsuario(req, res, next, str, response, usuarios) {
     try {
 
-        const findUsuario = await usuarios.findOne({ where: { correo: req.body.correo } })
+        const findUsuario = await usuarios.findOne({ where: { correo: req.body.correo, estado: true } })
 
         if (findUsuario) {
             req.body.usuario = findUsuario
@@ -43,6 +43,7 @@ async function authUser(req, res, str, response, utiles, jwt, config) {
             res.json(new response(true, str.getAll, null, {
                 token,
                 expiresIn: options.expiresIn,
+                usuario: findUsuario
             }))
 
         } else {

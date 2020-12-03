@@ -1,12 +1,13 @@
 module.exports = (app, str, response) => {
 
     const material = app.get('materiales')
+    const tipoMaterial = app.get('tipo_materiales')
 
     return {
         create: (req, res) => { createMateriales(req, res, str, response, material) },
         update: (req, res) => { updateMateriales(req, res, str, response, material) },
         delete: (req, res) => { deleteMateriales(req, res, str, response, material) },
-        getAll: (req, res) => { getAllMateriales(res, str, response, material) }
+        getAll: (req, res) => { getAllMateriales(res, str, response, material, tipoMaterial) }
     }
 }
 
@@ -60,10 +61,10 @@ async function deleteMateriales(req, res, str, response, material) {
     }
 }
 
-async function getAllMateriales(res, str, response, material) {
+async function getAllMateriales(res, str, response, material, tipoMaterial) {
     try {
 
-        const Materiales = await material.findAll()
+        const Materiales = await material.findAll({ include: [tipoMaterial] })
 
         res.json(new response(true, str.get, null, Materiales))
 
