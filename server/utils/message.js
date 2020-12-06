@@ -10,6 +10,7 @@ const MESSAGE_ESP = {
     getErr: 'Error al obtener el objeto',
     errCatch: 'Error interno en el servidor',
     paramsErr: 'Error, hacen falta parametros',
+    error: 'Algo a salido mal'
 }
 
 module.exports = {

@@ -14,6 +14,7 @@ module.exports = (app, str) => {
     const MaterialesController = require('../controllers/materiales/material.controller')(app, str, Response)
     const MaterialesTiendaController = require('../controllers/materiales/material.tienda.controller')(app, str, Response)
     const AuthController = require('../controllers/auth/auth.controller')(app, str, Response)
+    const ArrendamientosController = require('../controllers/arrendamientos/arrendamiento.controller')(app, str, Response)
 
     // Rutas de estados
     routes.post('/estado/', EstadoController.create)
@@ -69,6 +70,9 @@ module.exports = (app, str) => {
 
     // Rutas de autentificacion
     routes.post('/login/', AuthController.validate, AuthController.login)
+
+    // Rutas de arrendamientos
+    routes.get('/arrendamiento/', ArrendamientosController.getAll)
 
     return routes
 }

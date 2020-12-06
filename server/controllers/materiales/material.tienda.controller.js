@@ -10,7 +10,7 @@ module.exports = (app, str, response) => {
         create: (req, res) => { createMaterialesTienda(req, res, str, response, materialesTienda) },
         update: (req, res) => { updateMaterialesTienda(req, res, str, response, materialesTienda) },
         delete: (req, res) => { deleteMaterialesTienda(req, res, str, response, materialesTienda) },
-        getAll: (req, res) => { getAllMaterialesTienda(res, str, response, materialesTienda) },
+        getAll: (req, res) => { getAllMaterialesTienda(res, str, response, materialesTienda, material, tipoMaterial, moneda, tiendas) },
         getAllByTienda: (req, res) => { getAllByIdTienda(req, res, str, response, materialesTienda, material, tipoMaterial, moneda, tiendas) }
     }
 }
@@ -75,10 +75,12 @@ async function deleteMaterialesTienda(req, res, str, response, materialesTienda)
     }
 }
 
-async function getAllMaterialesTienda(res, str, response, materialesTienda) {
+async function getAllMaterialesTienda(res, str, response, materialesTienda, material, tipoMaterial, moneda, tiendas) {
     try {
 
-        const MaterialesTienda = await materialesTienda.findAll()
+        const MaterialesTienda = await materialesTienda.findAll({
+            include: [{ model: material, include: [tipoMaterial] }, moneda, tiendas]
+        })
 
         res.json(new response(true, str.get, null, MaterialesTienda))
 
