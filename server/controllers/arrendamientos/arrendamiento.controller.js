@@ -46,12 +46,6 @@ async function createArrendamiento(req, res, str, response, arrendamientos, arre
             res.json(new response(true, str.create, null, newArrendamiento))
         }
 
-        //  Esta opcion es si es cancelacion o cerrado
-        if (newArrendamiento.fk_id_estado === 2 || newArrendamiento.fk_id_estado === 3) {
-            const data = await updateUpStock(res, str, response, newArrendamiento, materialesTienda)
-            res.json(new response(true, str.create, null, newArrendamiento))
-        }
-
         //  Esta opcion es si es un arredamiento activo
         if (newArrendamiento.fk_id_estado === 1) {
             const data = await updateDownStock(res, str, response, newArrendamiento, materialesTienda)
