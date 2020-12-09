@@ -75,6 +75,7 @@ module.exports = (app, str) => {
     routes.get('/arrendamiento/', ArrendamientosController.getAll)
     routes.get('/arrendamiento/:id', ArrendamientosController.getId)
     routes.get('/arrendamiento/tienda/:id', ArrendamientosController.getTienda)
+    routes.get('/arrendamiento/usuario/:id', ArrendamientosController.getUsuario)
     routes.post('/arrendamiento/', ArrendamientosController.create)
     routes.put('/arrendamiento/', ArrendamientosController.updateState)
 
