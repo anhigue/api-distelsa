@@ -73,6 +73,8 @@ module.exports = (app, str) => {
 
     // Rutas de arrendamientos
     routes.get('/arrendamiento/', ArrendamientosController.getAll)
+    routes.post('/arrendamiento/', ArrendamientosController.create)
+    routes.put('/arrendamiento/', ArrendamientosController.updateState)
 
     return routes
 }
