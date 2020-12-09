@@ -9,12 +9,13 @@ module.exports = (app, str, response) => {
     const estados = app.get('estados')
     const tiendas = app.get('tiendas')
     const proveedores = app.get('proveedores')
+    const usuario = app.get('usuarios')
 
     return {
         getAll: (req, res) => { getAll(req, res, str, response, arrendamientos, arrendamientosMateriales, materialesTienda, materiales, tipoMaterial, monedas, estados, tiendas, proveedores) },
         create: (req, res) => { createArrendamiento(req, res, str, response, arrendamientos, arrendamientosMateriales, materialesTienda) },
         updateState: (req, res) => { updateEstado(req, res, str, response, arrendamientos, arrendamientosMateriales, materialesTienda) },
-        getId: (req, res) => { getById(req, res, str, response, arrendamientos, arrendamientosMateriales, materialesTienda, materiales, tipoMaterial, monedas, estados, tiendas, proveedores) }
+        getId: (req, res) => { getById(req, res, str, response, arrendamientos, arrendamientosMateriales, materialesTienda, materiales, tipoMaterial, monedas, estados, tiendas, proveedores, usuario) }
     }
 }
 
@@ -155,7 +156,7 @@ async function updateEstado(req, res, str, response, arrendamientos, arrendamien
     }
 }
 
-async function getById(req, res, str, response, arrendamientos, arrendamientosMateriales, materialesTienda, materiales, tipoMaterial, monedas, estados, tiendas, proveedores) {
+async function getById(req, res, str, response, arrendamientos, arrendamientosMateriales, materialesTienda, materiales, tipoMaterial, monedas, estados, tiendas, proveedores, usuario) {
     try {
         const idArrendamiento = req.params.id;
         const dataArrendamientos = await arrendamientos.findOne({
@@ -176,7 +177,8 @@ async function getById(req, res, str, response, arrendamientos, arrendamientosMa
                 },
                 monedas,
                 estados,
-                proveedores
+                proveedores,
+                usuario
             ]
         })
 
