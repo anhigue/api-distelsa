@@ -15,7 +15,8 @@ module.exports = (app, str, response) => {
         getAll: (req, res) => { getAll(req, res, str, response, arrendamientos, arrendamientosMateriales, materialesTienda, materiales, tipoMaterial, monedas, estados, tiendas, proveedores) },
         create: (req, res) => { createArrendamiento(req, res, str, response, arrendamientos, arrendamientosMateriales, materialesTienda) },
         updateState: (req, res) => { updateEstado(req, res, str, response, arrendamientos, arrendamientosMateriales, materialesTienda) },
-        getId: (req, res) => { getById(req, res, str, response, arrendamientos, arrendamientosMateriales, materialesTienda, materiales, tipoMaterial, monedas, estados, tiendas, proveedores, usuario) }
+        getId: (req, res) => { getById(req, res, str, response, arrendamientos, arrendamientosMateriales, materialesTienda, materiales, tipoMaterial, monedas, estados, tiendas, proveedores, usuario) },
+        getTienda: (req, res) => { getByTienda(req, res, str, response, arrendamientos, arrendamientosMateriales, materialesTienda, materiales, tipoMaterial, monedas, estados, tiendas, proveedores, usuario) }
     }
 }
 
@@ -168,6 +169,42 @@ async function getById(req, res, str, response, arrendamientos, arrendamientosMa
                     model: arrendamientosMateriales,
                     include: [{
                         model: materialesTienda,
+                        include: [
+                            {
+                                model: materiales,
+                                include: [tipoMaterial]
+                            }, tiendas, monedas]
+                    },]
+                },
+                monedas,
+                estados,
+                proveedores,
+                usuario
+            ]
+        })
+
+        res.json(new response(true, str.get, null, dataArrendamientos))
+
+    } catch (error) {
+        res.json(new response(false, str.errCatch, error, null))
+    }
+}
+
+async function getByTienda(req, res, str, response, arrendamientos, arrendamientosMateriales, materialesTienda, materiales, tipoMaterial, monedas, estados, tiendas, proveedores, usuario) {
+    try {
+        const idTienda = req.params.id;
+        const dataArrendamientos = await arrendamientos.findAll({
+            where: {
+                fk_id_estado: 1
+            },
+            include: [
+                {
+                    model: arrendamientosMateriales,
+                    include: [{
+                        model: materialesTienda,
+                        where: {
+                            fk_id_tienda: idTienda
+                        },
                         include: [
                             {
                                 model: materiales,
