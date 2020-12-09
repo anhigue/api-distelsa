@@ -13,7 +13,8 @@ module.exports = (app, str, response) => {
     return {
         getAll: (req, res) => { getAll(req, res, str, response, arrendamientos, arrendamientosMateriales, materialesTienda, materiales, tipoMaterial, monedas, estados, tiendas, proveedores) },
         create: (req, res) => { createArrendamiento(req, res, str, response, arrendamientos, arrendamientosMateriales, materialesTienda) },
-        updateState: (req, res) => { updateEstado(req, res, str, response, arrendamientos, arrendamientosMateriales, materialesTienda) }
+        updateState: (req, res) => { updateEstado(req, res, str, response, arrendamientos, arrendamientosMateriales, materialesTienda) },
+        getId: (req, res) => { getById(req, res, str, response, arrendamientos, arrendamientosMateriales, materialesTienda, materiales, tipoMaterial, monedas, estados, tiendas, proveedores) }
     }
 }
 
@@ -148,6 +149,38 @@ async function updateEstado(req, res, str, response, arrendamientos, arrendamien
         }
 
         res.json(new response(true, str.create, null, newArrendamiento))
+
+    } catch (error) {
+        res.json(new response(false, str.errCatch, error, null))
+    }
+}
+
+async function getById(req, res, str, response, arrendamientos, arrendamientosMateriales, materialesTienda, materiales, tipoMaterial, monedas, estados, tiendas, proveedores) {
+    try {
+        const idArrendamiento = req.params.id;
+        const dataArrendamientos = await arrendamientos.findOne({
+            where: {
+                id: idArrendamiento
+            },
+            include: [
+                {
+                    model: arrendamientosMateriales,
+                    include: [{
+                        model: materialesTienda,
+                        include: [
+                            {
+                                model: materiales,
+                                include: [tipoMaterial]
+                            }, tiendas, monedas]
+                    },]
+                },
+                monedas,
+                estados,
+                proveedores
+            ]
+        })
+
+        res.json(new response(true, str.get, null, dataArrendamientos))
 
     } catch (error) {
         res.json(new response(false, str.errCatch, error, null))
