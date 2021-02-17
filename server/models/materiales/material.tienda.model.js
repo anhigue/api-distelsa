@@ -17,6 +17,10 @@ module.exports = (sequelize, type, material, tienda, moneda) => {
             type: type.INTEGER,
             allowNull: false
         },
+        maximo: {
+            type: type.INTEGER,
+            allowNull: true
+        },
         precio: {
             type: type.FLOAT,
             allowNull: false

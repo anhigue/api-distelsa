@@ -40,6 +40,7 @@ async function createArrendamiento(req, res, str, response, arrendamientos, arre
             fk_id_usuario: arrendamiento.fk_id_usuario,
             fk_id_proveedor: arrendamiento.fk_id_proveedor,
             fk_id_moneda: arrendamiento.fk_id_moneda,
+            fk_id_tienda: arrendamiento.fk_id_tienda,
             arrendamientos_materiales: arrendamientoMaterial
         }, {
             include: [arrendamientosMateriales]
@@ -180,7 +181,8 @@ async function getById(req, res, str, response, arrendamientos, arrendamientosMa
                 monedas,
                 estados,
                 proveedores,
-                usuario
+                usuario,
+                tiendas
             ]
         })
 
@@ -196,16 +198,14 @@ async function getByTienda(req, res, str, response, arrendamientos, arrendamient
         const idTienda = req.params.id;
         const dataArrendamientos = await arrendamientos.findAll({
             where: {
-                fk_id_estado: 1
+                fk_id_estado: 1,
+                fk_id_tienda: idTienda
             },
             include: [
                 {
                     model: arrendamientosMateriales,
                     include: [{
                         model: materialesTienda,
-                        where: {
-                            fk_id_tienda: idTienda
-                        },
                         include: [
                             {
                                 model: materiales,
@@ -216,7 +216,8 @@ async function getByTienda(req, res, str, response, arrendamientos, arrendamient
                 monedas,
                 estados,
                 proveedores,
-                usuario
+                usuario,
+                tiendas
             ]
         })
 
@@ -250,7 +251,8 @@ async function getByUsuario(req, res, str, response, arrendamientos, arrendamien
                 monedas,
                 estados,
                 proveedores,
-                usuario
+                usuario,
+                tiendas
             ]
         })
 
