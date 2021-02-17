@@ -1,4 +1,4 @@
-module.exports = (sequelize, type, estados, usuarios, proveedor, moneda) => {
+module.exports = (sequelize, type, estados, usuarios, proveedor, moneda, tienda) => {
     const Arrendamientos = sequelize.define('arrendamientos', {
         id: {
             type: type.INTEGER,
@@ -38,6 +38,9 @@ module.exports = (sequelize, type, estados, usuarios, proveedor, moneda) => {
     // relacion con monedas
     Arrendamientos.belongsTo(moneda, { foreignKey: 'fk_id_moneda', onDelete: 'SET NULL', onUpdate: 'SET NULL' });
     moneda.hasMany(Arrendamientos, { foreignKey: 'fk_id_moneda', onDelete: 'SET NULL', onUpdate: 'SET NULL' });
+    // relacion con tienda
+    Arrendamientos.belongsTo(tienda, { foreignKey: 'fk_id_tienda', onDelete: 'SET NULL', onUpdate: 'SET NULL' });
+    tienda.hasMany(Arrendamientos, { foreignKey: 'fk_id_tienda', onDelete: 'SET NULL', onUpdate: 'SET NULL' });
 
     return Arrendamientos;
 }

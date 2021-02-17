@@ -35,7 +35,7 @@ const Proveedores = ProveedoresModel(Sequelize, sequelize)
 const Usuarios = UsuariosModel(Sequelize, sequelize, TipoUsuarios)
 const Materiales = MaterialesModel(Sequelize, sequelize, TipoMateriales)
 const MaterialesTienda = MaterialesTiendaModel(Sequelize, sequelize, Materiales, Tiendas, Monedas)
-const Arrendamientos = ArrendamientosModel(Sequelize, sequelize, Estados, Usuarios, Proveedores, Monedas)
+const Arrendamientos = ArrendamientosModel(Sequelize, sequelize, Estados, Usuarios, Proveedores, Monedas, Tiendas)
 const ArrendamientosMateriales = ArrendamientosMaterialesModel(Sequelize, sequelize, Arrendamientos, MaterialesTienda)
 
 module.exports = {
